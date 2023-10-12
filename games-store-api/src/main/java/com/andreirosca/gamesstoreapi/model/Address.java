@@ -38,10 +38,6 @@ public class Address {
     @Column(name = "phone_number")
     private String phoneNumber;
 
-//    @OneToOne(fetch = FetchType.EAGER)
-//    @MapsId
-//    @JoinColumn(name="customer_id")
-//    private Customer customer;
 
     //One-to-Many
     @OneToMany(mappedBy = "address", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
@@ -53,6 +49,6 @@ public class Address {
 
 
 
-    @OneToMany(mappedBy = "address")
+    @OneToMany(mappedBy = "address", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     Set<CustomerAddress> customerAddresses;
 }

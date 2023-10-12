@@ -21,10 +21,8 @@ public class Developer {
     @Column(name="developer_id")
     private UUID id;
 
-    @Column(name="FirstName")
-    private String firstName;
-    @Column(name="LastName")
-    private String lastName;
+    @Column(name="dev_company")
+    private String development_company;
 
 
     @ManyToMany(mappedBy = "developer", cascade = CascadeType.ALL, fetch = FetchType.LAZY)

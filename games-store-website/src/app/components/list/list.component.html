@@ -1,0 +1,38 @@
+<div class="list row">
+    <div class="col-md-8">
+      <div class="input-group mb-4">
+        <input type="text" class="form-control" placeholder="Search by title" [(ngModel)]="searchName" />
+        <div class="input-group-append">
+          <button class="btn btn-outline-secondary" type="button" (click)="searchByName()">
+            Search
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-12">
+      <h4>Book List</h4>
+  
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Name</th>
+            <th scope="col">Description</th>
+            <th scope="col" style="min-width: 150px;">Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let game of games">
+            <th scope="row">{{game.id}}</th>
+            <td><b>{{game.name}}</b></td>
+            <td>{{game.description}}</td>
+            <td>
+              <button type="button" class="btn btn-danger" routerLink="/book/{{game.id}}">Edit</button>
+              <button type="button" class="btn btn-warning" (click)="deleteGame(game.id)">Delete</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+  
+    </div>
+  </div>
