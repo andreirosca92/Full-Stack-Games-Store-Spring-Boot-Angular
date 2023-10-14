@@ -1,0 +1,100 @@
+{
+    "games":[
+        {
+            "id": 1,
+            "name": "Call of Duty",
+            "description": "Description Call of Duty",
+            "genre": "First_Person_shooter",
+            "platform": "WII",
+            "rating": 9.00,
+            "released": "2023-01-10",
+            "price": 40.00,
+            "condition": "NEW",
+            "img":"https://image.api.playstation.com/vulcan/img/rnd/202008/1900/lTSvbByTYMqy6R22teoybKCg.png"
+        },
+        {
+            "id": 2,
+            "name": "Gta 5",
+            "description": "Description GTA 5",
+            "genre": "First_Person_shooter",
+            "platform": "PC",
+            "rating": 9.00,
+            "released": "2023-01-10",
+            "price": 40.00,
+            "condition": "NEW",
+            "img": "https://assets2.ignimgs.com/2014/11/17/gta-v-bigjpg-e94b8d1280wjpg-e14d62_160w.jpg?width=1280"
+        },
+        {
+            "id": 3,
+            "name": "Call of Duty",
+            "description": "Description Call of Duty",
+            "genre": "First_Person_shooter",
+            "platform": "WII",
+            "rating": 9.00,
+            "released": "2023-01-10",
+            "price": 40.00,
+            "condition": "NEW",
+            "img": "https://image.api.playstation.com/vulcan/img/rnd/202008/1900/lTSvbByTYMqy6R22teoybKCg.png"
+        },
+        {
+            "id": 4,
+            "name": "Call of Duty Modern Warfare 3",
+            "description": "Description Call of Duty",
+            "genre": "First_Person_shooter",
+            "platform": "PC",
+            "rating": 9.00,
+            "released": "2023-01-10",
+            "price": 40.00,
+            "condition": "NEW",
+            "img": "https://www.callofduty.com/content/dam/atvi/callofduty/cod-touchui/blog/hero/mwiii/MWIII-REVEAL-FULL-TOUT.jpg"
+        },
+        {
+            "id": 5,
+            "name": "Call of Duty",
+            "description": "Description Call of Duty",
+            "genre": "First_Person_shooter",
+            "platform": "WII",
+            "rating": 9.00,
+            "released": "2023-01-10",
+            "price": 40.00,
+            "condition": "NEW",
+            "img":"https://image.api.playstation.com/vulcan/img/rnd/202008/1900/lTSvbByTYMqy6R22teoybKCg.png"
+        },
+        {
+            "id": 6,
+            "name": "Gta 5",
+            "description": "Description GTA 5",
+            "genre": "First_Person_shooter",
+            "platform": "PC",
+            "rating": 9.00,
+            "released": "2023-01-10",
+            "price": 40.00,
+            "condition": "NEW",
+            "img": "https://assets2.ignimgs.com/2014/11/17/gta-v-bigjpg-e94b8d1280wjpg-e14d62_160w.jpg?width=1280"
+        },
+        {
+            "id": 7,
+            "name": "Call of Duty",
+            "description": "Description Call of Duty",
+            "genre": "First_Person_shooter",
+            "platform": "WII",
+            "rating": 9.00,
+            "released": "2023-01-10",
+            "price": 40.00,
+            "condition": "NEW",
+            "img": "https://image.api.playstation.com/vulcan/img/rnd/202008/1900/lTSvbByTYMqy6R22teoybKCg.png"
+        },
+        {
+            "id": 8,
+            "name": "Call of Duty Modern Warfare 3",
+            "description": "Description Call of Duty",
+            "genre": "First_Person_shooter",
+            "platform": "PC",
+            "rating": 9.00,
+            "released": "2023-01-10",
+            "price": 40.00,
+            "condition": "NEW",
+            "img": "https://www.callofduty.com/content/dam/atvi/callofduty/cod-touchui/blog/hero/mwiii/MWIII-REVEAL-FULL-TOUT.jpg"
+        }
+    ]
+}

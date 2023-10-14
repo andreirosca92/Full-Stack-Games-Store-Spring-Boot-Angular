@@ -1,40 +1,125 @@
-<div style="width: 500px; margin: auto;">
-    <div class="submit-form">
-      <div *ngIf="!isGameAdded">
-        <div class="form-group">
-          <label for="title">Name</label>
-          <input type="text" class="form-control" id="title" required [(ngModel)]="game.name" name="name" />
-        </div>
+<h2 style="color: rgb(10, 3, 17);">Create new Game: </h2>
+  <div *ngIf="!isGameAdded">
+
+<div class="container" fxLayout="column" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="1%" fxLayoutAlign="center">
   
-        <div class="form-group">
-          <label for="description">Description</label>
-          <input class="form-control" id="description" required [(ngModel)]="game.description" name="description" />
-          <label for="platform">Platform</label>
-          <input class="form-control" id="platform" required [(ngModel)]="game.platform" name="platform" />
-          <label for="genre">Genre</label>
-          <input class="form-control" id="genre" required [(ngModel)]="game.genre" name="genre" />
-          <label for="price">Price</label>
-          <input class="form-control" id="price" required [(ngModel)]="game.price" name="price" />
-          <label for="rating">Rating</label>
-          <input class="form-control" id="rating" required [(ngModel)]="game.rating" name="rating" />
-          <mat-form-field>
-            <mat-label>Choose a date</mat-label>
-            <input matInput [matDatepicker]="picker">
-            <mat-hint>MM/DD/YYYY</mat-hint>
-            <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
-            <mat-datepicker #picker></mat-datepicker>
-          </mat-form-field>
-          
+  <div fxFlex="5%" fxLayout="column">
+    <mat-form-field >
+      <mat-label>Name</mat-label>
+      <input matInput [(ngModel)]="game.name">
+    </mat-form-field>
+  </div>
+  <div fxFlex="10%" fxLayout="column">
+    <mat-form-field>
+      <mat-label>Description</mat-label>
+      <textarea matInput [(ngModel)]="game.description"></textarea>
+    </mat-form-field>
+
+  </div>
+  <div fxFlex="10%" fxLayout="column">
+    <mat-form-field>
+      <mat-label>Generies</mat-label>
+      <mat-select [(ngModel)]="game.genre">
+        <mat-option>None</mat-option>
+        <mat-option *ngFor="let gen of genre" [value]="gen" >{{gen}}</mat-option>
+      </mat-select>
+      </mat-form-field>
+  </div>
+  <div fxFlex="15%" fxLayout="column">
+    <mat-form-field>
+      <mat-label>Price</mat-label>
+      <input matInput [(ngModel)]="game.price">
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Rating</mat-label>
+      <input matInput [(ngModel)]="game.rating">
+    </mat-form-field>
+  </div>
+  <div fxFlex="10%" fxLayout="column">
+    <mat-form-field>
+      <mat-label>Platform</mat-label>
+      <mat-select [(ngModel)]="game.platform">
+        <mat-option>None</mat-option>
+        <mat-option *ngFor="let plt of platform" [value]="plt" >{{plt}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+  
+  </div>
+  <div fxFlex="10%" fxLayout="column">
+    <mat-form-field>
+      <mat-label>Condition</mat-label>
+      <mat-select [(ngModel)]="game.condition">
+        <mat-option>None</mat-option>
+        <mat-option *ngFor="let cnd of condition" [value]="cnd" >{{cnd}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+  
+  </div>
+  <div fxFlex="10%" fxLayout="column">
+    <mat-form-field>
+      <mat-label>Released Date</mat-label>
+      <input [(ngModel)]="date" matInput [matDatepicker]="picker"  placeholder="Inserisci la data di rilascio?" readonly>
+      <mat-hint>MM/DD/YYYY</mat-hint>
+      <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+  </mat-form-field>
+  <div fxFlex="5%" fxLayout="column">
+    <mat-form-field >
+      <mat-label>Image Url</mat-label>
+      <input matInput [(ngModel)]="game.image">
+    </mat-form-field>
+  </div>
+
+  <!-- <div class="text-center" fxFlex="5%" fxLayout="column"> 
+    <input class="form-control" type="file" 
+            > 
+  
+    <button 
+        class="btn btn-success"> 
+        Upload 
+    </button> 
+  </div> -->
+  <br>
+  <div class="button" fxFlex="10%" fxLayout="column">
+    
+    <button (click)="addGame()" class="btn btn-success">Create</button>
+  </div>
+  
+<div *ngIf="isGameAdded" fxFlex="5%" fxLayout="column">
+  <h3>New Games added!</h3>
+  <button class="btn btn-success" (click)="newGame()"> + Add More</button>
+</div>
+
+  </div>
+</div>
+</div>
+    
+      
         
-        </div>
+   
+      
+        
+
+    
+  
+
 
   
-        <button (click)="addGame()" class="btn btn-success">Create</button>
-      </div>
+    
+     
+      
+      
+      
+        
+    
+
+
+
+    
+
+
+
+
+
   
-      <div *ngIf="isGameAdded">
-        <h3>New Games added!</h3>
-        <button class="btn btn-success" (click)="newGame()"> + Add More</button>
-      </div>
-    </div>
-  </div>
+

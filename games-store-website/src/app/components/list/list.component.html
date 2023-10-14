@@ -1,38 +1,25 @@
-<div class="list row">
-    <div class="col-md-8">
-      <div class="input-group mb-4">
-        <input type="text" class="form-control" placeholder="Search by title" [(ngModel)]="searchName" />
-        <div class="input-group-append">
-          <button class="btn btn-outline-secondary" type="button" (click)="searchByName()">
-            Search
-          </button>
-        </div>
-      </div>
-    </div>
-    <div class="col-md-12">
-      <h4>Book List</h4>
-  
-      <table class="table">
-        <thead>
-          <tr>
-            <th scope="col">#</th>
-            <th scope="col">Name</th>
-            <th scope="col">Description</th>
-            <th scope="col" style="min-width: 150px;">Action</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let game of games">
-            <th scope="row">{{game.id}}</th>
-            <td><b>{{game.name}}</b></td>
-            <td>{{game.description}}</td>
-            <td>
-              <button type="button" class="btn btn-danger" routerLink="/book/{{game.id}}">Edit</button>
-              <button type="button" class="btn btn-warning" (click)="deleteGame(game.id)">Delete</button>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-  
-    </div>
+
+  <div fxLayoutGap="1%" fxLayout="row">
+    <mat-form-field class="search-form">
+      <input matInput placeholder="Search Picture" type="text" [(ngModel)]="searchName">
+    </mat-form-field>
+    <button class="button-search" button="submit" mat-raised-button color="primary" (click)="searchByName()">Search</button>
   </div>
+  
+
+  <div fxLayout="row" fxLayout.xs="column" fxLayout="row wrap" fxLayoutGap="0.5%" fxLayoutAlign="center">
+    <mat-card class="card-picture" *ngFor="let game of games">
+      <mat-card-title fxLayout.gt-xs="row" fxLayout.xs="column">
+        <span fxFlex="60%">{{game.name}}</span>
+        <mat-icon fxFlex="15%" routerLink="/games/{{game.id}}">mode_edit</mat-icon>
+        <mat-icon fxFlex="15%" (click)="deleteGame(game.id)">delete</mat-icon>
+      </mat-card-title>
+      <img mat-card-image [width]="200" [height]="250" [src]="game.image" fxLayoutGap="0.5%">
+      <mat-card-footer >
+        <span class="badge bg-primary">{{game.platform}}</span>
+        <span  class="badge bg-success">{{game.genre}}</span>
+      </mat-card-footer>
+    </mat-card>
+  </div>
+
+

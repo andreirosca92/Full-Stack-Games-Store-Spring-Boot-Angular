@@ -6,14 +6,14 @@ interface Inventory{
     StockLevelUsed: string,
     StockLevelNew: string
 }
-enum Condition{
+export enum Condition{
 
     NEW,
     VERY_GOOD,
 
     GOOD
 }
-enum Genre{
+export enum Genre{
     Action,
     Platform,
     First_Person_shooter,
@@ -21,7 +21,7 @@ enum Genre{
     Real_time_strategy,
     Simulation
 }
-enum Platform{
+export enum Platform{
      WII,
     PS5,
     WINDOWS,
@@ -40,6 +40,7 @@ export interface Games{
     condition?: Condition,
     inventory?: Inventory,
     publisher?: Publisher[],
+    image?: string,
 
 
 }

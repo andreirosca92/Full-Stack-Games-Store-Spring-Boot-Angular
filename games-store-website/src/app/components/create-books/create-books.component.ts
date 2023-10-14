@@ -1,12 +1,23 @@
 import { Component, OnInit } from '@angular/core';
 import { GamesService } from 'src/app/services/games.service';
-import { Games } from 'src/app/models/Games';
+import { Condition, Games, Genre} from 'src/app/models/Games';
+import { Platform } from 'src/app/models/Games';
+
+
 @Component({
   selector: 'app-create-books',
   templateUrl: './create-books.component.html',
-  styleUrls: ['./create-books.component.css']
+  styleUrls: ['./create-books.component.css'],
+  
+  
 })
 export class CreateBooksComponent implements OnInit{
+ 
+  
+  genre:string[] = Object.keys(Genre).filter((value:any)=>isNaN(value));
+  platform:string[] = Object.keys(Platform).filter((value:any)=>isNaN(value));
+  condition: string[] =Object.keys(Condition).filter((value:any)=>isNaN(value));
+  date: any;
 
   game:Games = {
     
@@ -14,6 +25,7 @@ export class CreateBooksComponent implements OnInit{
     description: '',
     genre: undefined,
     platform: undefined,
+    image: '',
     rating: 0,
     price: 0,
     released: undefined,
@@ -23,11 +35,14 @@ export class CreateBooksComponent implements OnInit{
 
   };
   isGameAdded = false;
+  
   constructor(private gamesService: GamesService){
 
   }
  
-  ngOnInit(): void { }
+  ngOnInit(): void {
+    this.date = new Date();
+   }
 
   // Add New
   addGame(): void {
@@ -36,12 +51,13 @@ export class CreateBooksComponent implements OnInit{
     description: this.game.description,
     genre: this.game.genre,
     platform: this.game.platform,
+    image: this.game.image,
     rating: this.game.rating,
     price: this.game.price,
     released: this.game.released,
     condition: this.game.condition,
-    inventory: this.game.inventory,
-    publisher: this.game.publisher,
+   
+    
     };
     if (!data.name) {
       alert('Please add title!');
@@ -66,6 +82,7 @@ export class CreateBooksComponent implements OnInit{
     description: '',
     genre: undefined,
     platform: undefined,
+    image: '',
     rating: 0,
     price: 0,
     released: undefined,

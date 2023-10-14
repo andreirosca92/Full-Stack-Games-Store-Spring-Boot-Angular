@@ -15,7 +15,7 @@ import java.util.UUID;
 
 @Repository
 public interface GameRepository extends JpaRepository<Game, UUID> {
-    @Query(value = "SELECT * FROM Games g WHERE g.name LIKE %:name%", nativeQuery = true)
+    @Query(value = "SELECT * FROM Games g WHERE LOWER(g.name) LIKE LOWER(%:name)", nativeQuery = true)
    List<Game> findByTitleContaining(@Param("name") String name);
 
     @Query(value="SELECT * FROM Games g WHERE g.genre LIKE %:genre%", nativeQuery = true)

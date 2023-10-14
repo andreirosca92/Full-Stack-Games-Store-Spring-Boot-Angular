@@ -1,0 +1,9 @@
+mat-grid-tile {
+    background: lightblue;
+  }
+.flex-create{
+    background-color: rgb(157, 104, 104);
+    position: relative;
+    flex: auto;
+    flex-direction: column;
+}

@@ -1,7 +1,7 @@
 version: '3.1'
 services:
   API:
-    image: 'app.jar'
+    image: 'games-store-api:1.0'
     ports:
       - "8080:8080"
     depends_on:

@@ -10,21 +10,45 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { PagenotfoundComponent } from './components/pagenotfound/pagenotfound.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
-import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatDatepickerModule} from '@angular/material/datepicker';
-import {MatInputModule} from '@angular/material/input';
-import {MatFormFieldModule} from '@angular/material/form-field';
+
 import {MatNativeDateModule} from '@angular/material/core';
+import {FormsModule} from '@angular/forms';
+import {MatInputModule} from '@angular/material/input';
+import {NgFor} from '@angular/common';
+import {MatSelectModule} from '@angular/material/select';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatGridListModule} from '@angular/material/grid-list';
+
+import {MatListModule} from '@angular/material/list';
+import { LoginComponent } from './components/login/login.component';
+import { LayoutComponent } from './components/layout/layout.component';
+import { FooterComponent } from './components/footer/footer.component';
+import { RegisterComponent } from './components/register/register.component';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { FlexModule } from '@angular/flex-layout';
+import {MatCardModule} from '@angular/material/card';
+import { FileUploadComponent } from './components/file-upload/file-upload.component';
+
+import {MatDividerModule} from '@angular/material/divider';
+import {MatButton, MatButtonModule} from '@angular/material/button';
+import {MatIconModule} from '@angular/material/icon';
 @NgModule({
   declarations: [
+    
     AppComponent,
     CreateBooksComponent,
     DetailsComponent,
     ListComponent,
     NavbarComponent,
-    PagenotfoundComponent
+    PagenotfoundComponent,
+    LoginComponent,
+    LayoutComponent,
+    FooterComponent,
+    RegisterComponent,
+    FileUploadComponent
   ],
   imports: [
     MatDatepickerModule,
@@ -36,7 +60,16 @@ import {MatNativeDateModule} from '@angular/material/core';
     BrowserModule,
     AppRoutingModule,
     NgbModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    MatFormFieldModule, MatSelectModule, NgFor, MatInputModule, FormsModule,
+    MatGridListModule, MatListModule, MatDividerModule,
+    FlexModule,
+    FlexLayoutModule,
+    MatCardModule,
+    MatButtonModule,
+    MatIconModule
+  
+    
   ],
   providers: [],
   bootstrap: [AppComponent]

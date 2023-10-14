@@ -9,10 +9,14 @@ import { Observable, throwError } from 'rxjs';
 export class GamesService {
 
   apiUrl: string = 'http://localhost:8080/api/games';
+ 
+
   headers = new HttpHeaders().set('Content-Type', 'application/json');
 
 
   constructor(private httpClient: HttpClient) { }
+  
+
 
   // Show lists of item
   list(): Observable<Games[]> {

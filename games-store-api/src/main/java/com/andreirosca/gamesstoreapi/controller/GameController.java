@@ -10,6 +10,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -74,7 +75,7 @@ public class GameController {
         return new ResponseEntity<>(game, HttpStatus.OK);
     }
 
-    @PostMapping("/games")
+    @PostMapping(path="/games", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Game> createGame(@RequestBody Game game) {
         Game _game = service.createGame(game);
         return new ResponseEntity<>(_game, HttpStatus.CREATED);

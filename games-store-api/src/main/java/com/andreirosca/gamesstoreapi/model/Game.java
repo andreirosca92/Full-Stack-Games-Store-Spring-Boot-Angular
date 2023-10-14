@@ -37,6 +37,8 @@ public class Game {
     public Platform platform;
     @Column(name="rating")
     private double rating;
+    @Column(name="link_img")
+    private String image;
     @Column(name="date_released")
     private LocalDate released;
 
