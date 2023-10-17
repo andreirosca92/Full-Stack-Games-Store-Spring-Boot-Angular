@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { GamesService } from 'src/app/services/games.service';
-import { Condition, Games, Genre} from 'src/app/models/Games';
+import { Condition, Games, Genre, Publisher} from 'src/app/models/Games';
 import { Platform } from 'src/app/models/Games';
 
 
@@ -18,20 +18,20 @@ export class CreateBooksComponent implements OnInit{
   platform:string[] = Object.keys(Platform).filter((value:any)=>isNaN(value));
   condition: string[] =Object.keys(Condition).filter((value:any)=>isNaN(value));
   date: any;
-
-  game:Games = {
-    
+  rating:number[]=[1,2,3,4,5,6,7,8,9,10];
+  games:Games = {
+    id:'',
     name: '',
-    description: '',
+    description:'',
+    price: 0,
+    rating: 0,
     genre: undefined,
     platform: undefined,
-    image: '',
-    rating: 0,
-    price: 0,
-    released: undefined,
     condition: undefined,
-    inventory: undefined,
-    publisher: [],
+    released: undefined,
+    publisher: undefined,
+    inventory: undefined
+    
 
   };
   isGameAdded = false;
@@ -46,19 +46,17 @@ export class CreateBooksComponent implements OnInit{
 
   // Add New
   addGame(): void {
-    const data = {
-      name: this.game.name,
-    description: this.game.description,
-    genre: this.game.genre,
-    platform: this.game.platform,
-    image: this.game.image,
-    rating: this.game.rating,
-    price: this.game.price,
-    released: this.game.released,
-    condition: this.game.condition,
-   
-    
-    };
+    const data ={
+    name: this.games.name,
+    description:this.games.description,
+    price: this.games.price,
+    rating: this.games.rating,
+    genre: this.games.genre,
+    platform: this.games.platform,
+    condition: this.games.condition,
+    released: this.date,
+    publisher: this.games.publisher,
+    }
     if (!data.name) {
       alert('Please add title!');
       return;
@@ -77,18 +75,20 @@ export class CreateBooksComponent implements OnInit{
   // Reset on adding new
   newGame(): void {
     this.isGameAdded = false;
-    this.game = {
+    this.games = {
+      id:'',
       name: '',
-    description: '',
-    genre: undefined,
-    platform: undefined,
-    image: '',
-    rating: 0,
-    price: 0,
-    released: undefined,
-    condition: undefined,
-    inventory: undefined,
-    publisher: [],
+      description:'',
+      price: 0,
+      rating: 0,
+      genre: undefined,
+      platform: undefined,
+      condition: undefined,
+      released: undefined,
+      publisher: undefined,
+      inventory: undefined
+      
+  
     };
   }
 

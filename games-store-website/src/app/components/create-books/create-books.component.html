@@ -1,74 +1,126 @@
-<h2 style="color: rgb(10, 3, 17);">Create new Game: </h2>
+
+
+
   <div *ngIf="!isGameAdded">
+    <h2 style="color: rgb(10, 3, 17);">Create new Game: </h2>
+    <mat-grid-list cols="4" rows="8" rowHeight="100px"  gutterSize="10px">
+      <mat-grid-tile colspan="1">
+        <mat-form-field >
+        <mat-label>Name</mat-label>
+        <input  matInput [(ngModel)]="games.name">
+        </mat-form-field>
+      </mat-grid-tile>
+      <mat-grid-tile colspan="1">
+        <mat-form-field >
+          <mat-label>Generies</mat-label>
+          <mat-select [(ngModel)]="games.genre">
+           
+            <mat-option *ngFor="let gen of genre ? genre : []" [value]="gen" >{{gen}}</mat-option>
+          </mat-select>
+          </mat-form-field>
+      </mat-grid-tile>
+      <mat-grid-tile colspan="1">
 
-<div class="container" fxLayout="column" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="1%" fxLayoutAlign="center">
-  
-  <div fxFlex="5%" fxLayout="column">
-    <mat-form-field >
-      <mat-label>Name</mat-label>
-      <input matInput [(ngModel)]="game.name">
-    </mat-form-field>
-  </div>
-  <div fxFlex="10%" fxLayout="column">
-    <mat-form-field>
-      <mat-label>Description</mat-label>
-      <textarea matInput [(ngModel)]="game.description"></textarea>
-    </mat-form-field>
+        <mat-form-field floatLabel="always">
+          <mat-label>Price</mat-label>
+          <input [(ngModel)]="games.price" matInput type="number" class="example-right-align" placeholder="0">
+          <span matTextPrefix>€&nbsp;</span>
+          <span matTextSuffix>.00</span>
+        </mat-form-field>
 
-  </div>
-  <div fxFlex="10%" fxLayout="column">
-    <mat-form-field>
-      <mat-label>Generies</mat-label>
-      <mat-select [(ngModel)]="game.genre">
-        <mat-option>None</mat-option>
-        <mat-option *ngFor="let gen of genre" [value]="gen" >{{gen}}</mat-option>
-      </mat-select>
+      </mat-grid-tile>
+      <mat-grid-tile colspan="1">
+        <mat-form-field >
+          <mat-label>Rating</mat-label>
+          <mat-select [(ngModel)]="games.rating">
+        
+            <mat-option *ngFor="let rt of rating" [value]="rt" >{{rt}}</mat-option>
+          </mat-select>
+          </mat-form-field>
+
+      </mat-grid-tile>
+      <mat-grid-tile colspan="2">
+        
+       <mat-form-field >
+          <mat-label>Platform</mat-label>
+          <mat-select  [(ngModel)]="games.platform">
+      
+            <mat-option *ngFor="let plt of platform" [value]="plt" >{{plt}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </mat-grid-tile>
+      <mat-grid-tile colspan="2">
+        <mat-form-field>
+          <mat-label>Condition</mat-label>
+          <mat-select [(ngModel)]="games.condition">
+          
+            <mat-option *ngFor="let cnd of condition" [value]="cnd" >{{cnd}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </mat-grid-tile>
+      <mat-grid-tile colspan="1">
+        <mat-form-field >
+          <mat-label>Released Date</mat-label>
+          <input [(ngModel)]="date" matInput [matDatepicker]="picker"  placeholder="Inserisci la data di rilascio?" readonly>
+          <mat-hint>MM/DD/YYYY</mat-hint>
+          <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
       </mat-form-field>
+      </mat-grid-tile>
+      <mat-grid-tile colspan="3">
+        <mat-form-field >
+          <mat-label>Image Url</mat-label>
+          <input matInput [(ngModel)]="games.image">
+        </mat-form-field>
+      </mat-grid-tile>
+      <mat-grid-tile colspan="4" rowspan="2">
+        <mat-form-field>
+          <mat-label>Description</mat-label>
+          <textarea 
+            autosize
+           matInput [(ngModel)]="games.description"></textarea>
+        </mat-form-field>
+      </mat-grid-tile>
+      <mat-grid-tile colspan="3">
+        <mat-form-field >
+        <mat-label>Publisher</mat-label>
+        <input  matInput [(ngModel)]="games.publisher">
+        </mat-form-field>
+      </mat-grid-tile>
+      <mat-grid-tile colspan="2">
+        <button mat-raised-button color="primary" button="submit" (click)="addGame()">Create</button>
+      </mat-grid-tile>
+      <mat-grid-tile colspan="1">
+        <div *ngIf="isGameAdded">
+          <h3>New Games added!</h3>
+          <button mat-raised-button color="accent" button="submit" (click)="newGame()">Accent</button>
+        </div>
+      </mat-grid-tile>
+    </mat-grid-list>
+
+
   </div>
-  <div fxFlex="15%" fxLayout="column">
-    <mat-form-field>
-      <mat-label>Price</mat-label>
-      <input matInput [(ngModel)]="game.price">
-    </mat-form-field>
-    <mat-form-field>
-      <mat-label>Rating</mat-label>
-      <input matInput [(ngModel)]="game.rating">
-    </mat-form-field>
-  </div>
-  <div fxFlex="10%" fxLayout="column">
-    <mat-form-field>
-      <mat-label>Platform</mat-label>
-      <mat-select [(ngModel)]="game.platform">
-        <mat-option>None</mat-option>
-        <mat-option *ngFor="let plt of platform" [value]="plt" >{{plt}}</mat-option>
-      </mat-select>
-    </mat-form-field>
+
+ 
+    
+
+
+
+    
+
+    
+
+
+    
   
-  </div>
-  <div fxFlex="10%" fxLayout="column">
-    <mat-form-field>
-      <mat-label>Condition</mat-label>
-      <mat-select [(ngModel)]="game.condition">
-        <mat-option>None</mat-option>
-        <mat-option *ngFor="let cnd of condition" [value]="cnd" >{{cnd}}</mat-option>
-      </mat-select>
-    </mat-form-field>
+
+    
   
-  </div>
-  <div fxFlex="10%" fxLayout="column">
-    <mat-form-field>
-      <mat-label>Released Date</mat-label>
-      <input [(ngModel)]="date" matInput [matDatepicker]="picker"  placeholder="Inserisci la data di rilascio?" readonly>
-      <mat-hint>MM/DD/YYYY</mat-hint>
-      <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
-      <mat-datepicker #picker></mat-datepicker>
-  </mat-form-field>
-  <div fxFlex="5%" fxLayout="column">
-    <mat-form-field >
-      <mat-label>Image Url</mat-label>
-      <input matInput [(ngModel)]="game.image">
-    </mat-form-field>
-  </div>
+ 
+    
+ 
+    
+
 
   <!-- <div class="text-center" fxFlex="5%" fxLayout="column"> 
     <input class="form-control" type="file" 
@@ -79,21 +131,7 @@
         Upload 
     </button> 
   </div> -->
-  <br>
-  <div class="button" fxFlex="10%" fxLayout="column">
-    
-    <button (click)="addGame()" class="btn btn-success">Create</button>
-  </div>
-  
-<div *ngIf="isGameAdded" fxFlex="5%" fxLayout="column">
-  <h3>New Games added!</h3>
-  <button class="btn btn-success" (click)="newGame()"> + Add More</button>
-</div>
-
-  </div>
-</div>
-</div>
-    
+ 
       
         
    

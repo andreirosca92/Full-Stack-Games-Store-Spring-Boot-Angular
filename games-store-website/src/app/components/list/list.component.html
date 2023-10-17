@@ -1,5 +1,5 @@
 
-  <div fxLayoutGap="1%" fxLayout="row">
+  <div fxLayoutGap="1%" fxLayout="row" fxLayoutAlign="center center">
     <mat-form-field class="search-form">
       <input matInput placeholder="Search Picture" type="text" [(ngModel)]="searchName">
     </mat-form-field>
@@ -9,16 +9,36 @@
 
   <div fxLayout="row" fxLayout.xs="column" fxLayout="row wrap" fxLayoutGap="0.5%" fxLayoutAlign="center">
     <mat-card class="card-picture" *ngFor="let game of games">
-      <mat-card-title fxLayout.gt-xs="row" fxLayout.xs="column">
-        <span fxFlex="60%">{{game.name}}</span>
-        <mat-icon fxFlex="15%" routerLink="/games/{{game.id}}">mode_edit</mat-icon>
-        <mat-icon fxFlex="15%" (click)="deleteGame(game.id)">delete</mat-icon>
+      
+      <mat-card-title  fxLayout.gt-xs="row" fxLayout.xs="column" fxLayoutAlign="start-flex" >
+          <span fxFlex="100%" fxLayoutAlign="center center">{{game.name}}</span>
       </mat-card-title>
-      <img mat-card-image [width]="200" [height]="250" [src]="game.image" fxLayoutGap="0.5%">
-      <mat-card-footer >
-        <span class="badge bg-primary">{{game.platform}}</span>
-        <span  class="badge bg-success">{{game.genre}}</span>
+      <mat-card-subtitle fxLayout.gt-xs="row" fxLayout.xs="column" fxLayoutAlign="flex-end" fxLayoutGap="2%" >
+        <button mat-icon-button class="btn-icon"  routerLink="/games/{{game.id}}" fxFlex="10%">
+        <mat-icon  >mode_edit</mat-icon>
+      </button>
+    <button mat-icon-button class="btn-icon" fxFlex="10%" (click)="deleteGame(game.id)">
+      <mat-icon >delete</mat-icon>
+    </button>
+  </mat-card-subtitle>
+      
+      <mat-card-content fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="0.5%">
+        <img mat-card-image  [width]="200" [height]="250" [src]="game.image" >
+        
+        
+      </mat-card-content>
+      
+      <mat-card-footer fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="0.5%">
+        <span class="badge bg-primary" fxFlex="20%">{{game.platform}}</span>
+        <span  class="badge bg-success" fxFlex="20%">{{game.genre}}</span>
+        <span  class="badge bg-success" fxFlex="20%">{{game.publisher?.name}}</span>
+        <span class="badge bg-primary" fxFlex="15%">{{game.price | currency: 'EUR'}}</span>
+       
       </mat-card-footer>
+      <mat-action-list fxLayoutAlign="center center" fxLayout="column">
+        <button class="button" class="btn btn-primary" (click)="goGameDetails(game.id)">View</button>
+        
+       </mat-action-list>
     </mat-card>
   </div>
 

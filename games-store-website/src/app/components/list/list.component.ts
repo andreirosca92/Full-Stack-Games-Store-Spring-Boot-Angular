@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Games } from 'src/app/models/Games';
+import { Games, Publisher } from 'src/app/models/Games';
 import { GamesService } from 'src/app/services/games.service';
-
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-list',
@@ -17,7 +17,7 @@ export class ListComponent implements OnInit {
   currentIndex = -1;
   searchName = '';
   
-  constructor(private gamesService: GamesService) { }
+  constructor(private gamesService: GamesService, private router: Router) { }
 
   ngOnInit(): void {
     this.getAllGames();
@@ -68,5 +68,8 @@ export class ListComponent implements OnInit {
         error => {
           console.log(error);
         });
+  }
+  goGameDetails(id:string | undefined):any{
+    return this.router.navigate([`games/${id}`]);
   }
 }

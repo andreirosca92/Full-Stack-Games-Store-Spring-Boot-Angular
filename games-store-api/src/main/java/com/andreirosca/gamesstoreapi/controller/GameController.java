@@ -1,29 +1,46 @@
 package com.andreirosca.gamesstoreapi.controller;
 
 
-import com.andreirosca.gamesstoreapi.model.Game;
-import com.andreirosca.gamesstoreapi.service.GameService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
-import org.springframework.data.repository.query.Param;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import com.andreirosca.gamesstoreapi.dto.GameRequest;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
+import com.andreirosca.gamesstoreapi.helpers.MyGameModel;
+import com.andreirosca.gamesstoreapi.helpers.MyGenreDeserializer;
+import com.andreirosca.gamesstoreapi.helpers.MyPublisherModel;
+import com.andreirosca.gamesstoreapi.model.Genre;
+import com.andreirosca.gamesstoreapi.model.Publisher;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.*;
+import com.fasterxml.jackson.databind.module.SimpleModule;
+import com.andreirosca.gamesstoreapi.dto.PublisherRequest;
+import com.andreirosca.gamesstoreapi.helpers.MyRequestModelDeserializer;
+import com.andreirosca.gamesstoreapi.model.Game;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import com.andreirosca.gamesstoreapi.service.GameService;
+
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import org.hibernate.Session;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import org.springframework.http.*;
+
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.RestTemplate;
+
+import java.io.IOException;
+import java.util.*;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:4200")
 @RequestMapping("/api")
 public class GameController {
+    private static SessionFactory sessionFactory;
 
+    @Autowired
+    private RestTemplate restTemplate;
     @Autowired
     private GameService service;
 
@@ -75,8 +92,58 @@ public class GameController {
         return new ResponseEntity<>(game, HttpStatus.OK);
     }
 
-    @PostMapping(path="/games", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Game> createGame(@RequestBody Game game) {
+    @PostMapping(value="/games/fake",
+            consumes = { MediaType.APPLICATION_JSON_VALUE},
+            produces = {MediaType.APPLICATION_JSON_VALUE})
+    public ResponseEntity<Game> createGame(@RequestBody Game game) throws IOException {
+
+
+        final ObjectMapper mapper = new ObjectMapper();
+        mapper.findAndRegisterModules();
+        mapper.enable(DeserializationFeature.ACCEPT_EMPTY_STRING_AS_NULL_OBJECT);
+        mapper.enable(DeserializationFeature.FAIL_ON_MISSING_CREATOR_PROPERTIES);
+        mapper.enable(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY);
+        mapper.enable(DeserializationFeature.ACCEPT_EMPTY_ARRAY_AS_NULL_OBJECT);
+        mapper.enable(DeserializationFeature.FAIL_ON_IGNORED_PROPERTIES);
+        mapper.enable(DeserializationFeature.FAIL_ON_NULL_CREATOR_PROPERTIES);
+        mapper.enable(DeserializationFeature.FAIL_ON_NULL_FOR_PRIMITIVES);
+        mapper.enable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
+        HttpHeaders http = new HttpHeaders();
+        http.setContentType(MediaType.APPLICATION_JSON);
+
+        final SimpleModule module = new SimpleModule();
+        module.addDeserializer(Game.class, new MyGameModel());
+        module.addDeserializer(Genre.class, new MyGenreDeserializer());
+        module.addDeserializer(Publisher.class, new MyPublisherModel());
+        mapper.registerModule(module);
+
+        MultiValueMap<String, Object> map = new LinkedMultiValueMap<>();
+        map.add("name", game.getName());
+        map.add("description", game.getDescription());
+        map.add("price", game.getPrice());
+        map.add("rating", game.getRating());
+//        map.add("orderitem", game.getOrderitem());
+        map.add("image", game.getImage());
+        map.add("publisher", game.getPublisher());
+        map.add("released", game.getReleased());
+//        map.add("developer", game.getDeveloper());
+//        map.add("inventory", game.getInventory());
+//        map.add("genre", game.getGenre());
+//        map.add("platform", game.getPlatform());
+//        map.add("condition", game.getCondition());
+
+        Game _game = mapper.convertValue(game, Game.class);
+        System.out.println(_game.toString());
+        Game res = service.createGame(_game);
+
+
+
+
+        return new ResponseEntity<>(res, HttpStatus.CREATED);
+    }
+
+    @PostMapping("/games")
+    public ResponseEntity<Game> createGame_(@RequestBody Game game){
         Game _game = service.createGame(game);
         return new ResponseEntity<>(_game, HttpStatus.CREATED);
     }

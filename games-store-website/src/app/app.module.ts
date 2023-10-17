@@ -35,6 +35,7 @@ import { FileUploadComponent } from './components/file-upload/file-upload.compon
 import {MatDividerModule} from '@angular/material/divider';
 import {MatButton, MatButtonModule} from '@angular/material/button';
 import {MatIconModule} from '@angular/material/icon';
+import {AutosizeModule} from 'ngx-autosize';
 @NgModule({
   declarations: [
     
@@ -48,9 +49,11 @@ import {MatIconModule} from '@angular/material/icon';
     LayoutComponent,
     FooterComponent,
     RegisterComponent,
-    FileUploadComponent
+    FileUploadComponent,
+    LayoutComponent
   ],
   imports: [
+    AutosizeModule,
     MatDatepickerModule,
     MatInputModule,
     MatFormFieldModule,

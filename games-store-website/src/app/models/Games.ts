@@ -1,7 +1,4 @@
-interface Publisher{
-    id: string,
-    name: string
-}
+
 interface Inventory{
     StockLevelUsed: string,
     StockLevelNew: string
@@ -39,8 +36,13 @@ export interface Games{
     released?: Date,
     condition?: Condition,
     inventory?: Inventory,
-    publisher?: Publisher[],
+    publisher?: Publisher,
     image?: string,
 
 
+}
+export interface Publisher{
+    id: string,
+    name: string,
+    game: Games[]
 }

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
-import { Games } from '../models/Games';
+import { Games, Publisher } from '../models/Games';
 import { catchError } from 'rxjs/operators';
 import { Observable, throwError } from 'rxjs';
 @Injectable({

@@ -1,18 +1,14 @@
 package com.andreirosca.gamesstoreapi.service;
 
+import com.andreirosca.gamesstoreapi.dto.GameRequest;
 import com.andreirosca.gamesstoreapi.model.Game;
-import com.andreirosca.gamesstoreapi.model.Order;
 import com.andreirosca.gamesstoreapi.repository.GameRepository;
+import io.micrometer.observation.annotation.Observed;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -64,14 +60,6 @@ public class GameService  {
         repository.deleteById(id);
     }
 
-    public List<Game> findGamesByGenre(String genre) {
-        return repository.findByGenre(genre);
-    }
-
-    public void deleteAllGames() {
-        repository.deleteAll();
-    }
-
     public List<Game> findGamesByPlatform(String platform) {
         return repository.findGamesByPlatform(platform);
     }
@@ -97,5 +85,13 @@ public class GameService  {
 
     public List<Game> getAllGamesByName(String name) {
         return repository.findByTitleContaining(name);
+    }
+
+    public List<Game> findGamesByGenre(String genre) {
+        return repository.findGamesByGenre(genre);
+    }
+
+    public void deleteAllGames() {
+        repository.deleteAll();
     }
 }
