@@ -1,26 +1,19 @@
 package com.andreirosca.gamesstoreapi.controller;
 
 
-import com.andreirosca.gamesstoreapi.dto.GameRequest;
 
-import com.andreirosca.gamesstoreapi.helpers.MyGameModel;
-import com.andreirosca.gamesstoreapi.helpers.MyGenreDeserializer;
-import com.andreirosca.gamesstoreapi.helpers.MyPublisherModel;
-import com.andreirosca.gamesstoreapi.model.Genre;
-import com.andreirosca.gamesstoreapi.model.Publisher;
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.JsonProcessingException;
+import com.andreirosca.gamesstoreapi.helpers.*;
+import com.andreirosca.gamesstoreapi.model.*;
+
 import com.fasterxml.jackson.databind.*;
 import com.fasterxml.jackson.databind.module.SimpleModule;
-import com.andreirosca.gamesstoreapi.dto.PublisherRequest;
-import com.andreirosca.gamesstoreapi.helpers.MyRequestModelDeserializer;
-import com.andreirosca.gamesstoreapi.model.Game;
-import org.hibernate.Session;
+
+import jakarta.persistence.criteria.CriteriaBuilder;
 import org.hibernate.SessionFactory;
 import com.andreirosca.gamesstoreapi.service.GameService;
 
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
-import org.hibernate.Session;
+
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.http.*;
@@ -31,13 +24,15 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
 import java.io.IOException;
+import java.time.LocalDate;
+
 import java.util.*;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:4200")
 @RequestMapping("/api")
 public class GameController {
-    private static SessionFactory sessionFactory;
+
 
     @Autowired
     private RestTemplate restTemplate;
@@ -92,13 +87,12 @@ public class GameController {
         return new ResponseEntity<>(game, HttpStatus.OK);
     }
 
-    @PostMapping(value="/games/fake",
-            consumes = { MediaType.APPLICATION_JSON_VALUE},
-            produces = {MediaType.APPLICATION_JSON_VALUE})
+    @PostMapping(value="/games",
+            consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Game> createGame(@RequestBody Game game) throws IOException {
 
 
-        final ObjectMapper mapper = new ObjectMapper();
+        ObjectMapper mapper = new ObjectMapper();
         mapper.findAndRegisterModules();
         mapper.enable(DeserializationFeature.ACCEPT_EMPTY_STRING_AS_NULL_OBJECT);
         mapper.enable(DeserializationFeature.FAIL_ON_MISSING_CREATOR_PROPERTIES);
@@ -112,40 +106,66 @@ public class GameController {
         http.setContentType(MediaType.APPLICATION_JSON);
 
         final SimpleModule module = new SimpleModule();
+        JavaTimeModule javaTimeModule = new JavaTimeModule();
         module.addDeserializer(Game.class, new MyGameModel());
         module.addDeserializer(Genre.class, new MyGenreDeserializer());
         module.addDeserializer(Publisher.class, new MyPublisherModel());
+        module.addDeserializer(LocalDate.class, new LocalDateDeserializer());
+        module.addDeserializer(Platform.class, new MyPlatformDeserializer());
+        module.addDeserializer(Condition.class, new MyConditionDeserializer());
+        module.addDeserializer(Inventory.class, new MyInventoryDeserializer());
         mapper.registerModule(module);
+        mapper.registerModule(javaTimeModule);
 
-        MultiValueMap<String, Object> map = new LinkedMultiValueMap<>();
-        map.add("name", game.getName());
-        map.add("description", game.getDescription());
-        map.add("price", game.getPrice());
-        map.add("rating", game.getRating());
-//        map.add("orderitem", game.getOrderitem());
-        map.add("image", game.getImage());
-        map.add("publisher", game.getPublisher());
-        map.add("released", game.getReleased());
-//        map.add("developer", game.getDeveloper());
-//        map.add("inventory", game.getInventory());
-//        map.add("genre", game.getGenre());
-//        map.add("platform", game.getPlatform());
-//        map.add("condition", game.getCondition());
+//
+//        MultiValueMap<String, Object> map = new LinkedMultiValueMap<>();
 
-        Game _game = mapper.convertValue(game, Game.class);
-        System.out.println(_game.toString());
-        Game res = service.createGame(_game);
+//        Inventory inventory = new Inventory();
+//        inventory.setGame(game);
+//        inventory.setId(game.getId());
+//
+//        Inventory inventory = new Inventory();
+//        inventory.setId(game.getId());
 
 
+        Game game1 = new ObjectMapper().convertValue(game, Game.class);
+        Inventory inv = new Inventory();
+        Game res =game1.setInventory(inv);
+//        map.add("name", game_.getName());
+//        map.add("description", game_.getDescription());
+//        map.add("price", game_.getPrice());
+//        map.add("rating", game_.getRating());
+////        map.add("orderitem", game.getOrderitem());
+//        map.add("image", game_.getImage());
+//        map.add("publisher", game_.getPublisher());
+//        map.add("released", game_.getReleased());
+////        map.add("developer", game.getDeveloper());
+//        map.add("inventory", game_.getInventory());
+//        map.add("genre", game_.getGenre());
+//        map.add("platform", game_.getPlatform());
+////        map.add("condition", game_.getCondition());
+        Game gameNew = service.createGame(game);
+        gameNew.setInventoryId(gameNew.getId());
+//
+//
+//
+//        System.out.println(res.toString());
 
 
-        return new ResponseEntity<>(res, HttpStatus.CREATED);
-    }
 
-    @PostMapping("/games")
-    public ResponseEntity<Game> createGame_(@RequestBody Game game){
-        Game _game = service.createGame(game);
-        return new ResponseEntity<>(_game, HttpStatus.CREATED);
+       // inventory.setGame(_game);
+
+
+
+
+
+
+
+
+
+
+
+        return new ResponseEntity<>(gameNew, HttpStatus.CREATED);
     }
 
     @PutMapping("/games/{id}")
@@ -158,7 +178,7 @@ public class GameController {
     }
 
     @DeleteMapping("/games/{id}")
-    public ResponseEntity<Game> deleteGame(@PathVariable("id") UUID id) {
+    public ResponseEntity<HttpStatus> deleteGame(@PathVariable("id") UUID id) {
 
         service.deleteGame(id);
         return new ResponseEntity<>( HttpStatus.NO_CONTENT);
@@ -171,25 +191,5 @@ public class GameController {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
-//    @GetMapping("/games/genre")
-//    public ResponseEntity<List<Game>> findGamesByGenre(@RequestParam(required = true) String genre) {
-//        List<Game> _games = new ArrayList<>();
-//        _games = service.findGamesByGenre(genre);
-//        if (_games.isEmpty()) {
-//            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-//        }
-//
-//        return new ResponseEntity<>(_games, HttpStatus.OK);
-//    }
-//    @GetMapping("/games/platform")
-//    public ResponseEntity<List<Game>> findGamesByPlatform(@RequestParam(required = true) String platform) {
-//        List<Game> _games = new ArrayList<>();
-//        _games = service.findGamesByPlatform(platform);
-//        if (_games.isEmpty()) {
-//            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-//        }
-//
-//        return new ResponseEntity<>(_games, HttpStatus.OK);
-//    }
 
 }

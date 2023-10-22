@@ -22,12 +22,12 @@ public class OrderController {
     @Autowired
     OrderService service;
 
-    @PostMapping(path="/orders", produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(path="/orders", produces = MediaType.APPLICATION_JSON_VALUE,  consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Order> addOrder(@RequestBody Order order){
         Order _order = service.addOrder(order);
         return new ResponseEntity<>(order, HttpStatus.CREATED);
     }
-    @GetMapping(path= "/orders", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(path= "/orders", consumes = MediaType.APPLICATION_JSON_VALUE, produces =MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<Order>> getAllOrders(){
         List<Order> _order = new ArrayList<>();
                _order= service.getAllOrders();
@@ -38,9 +38,29 @@ public class OrderController {
         return new ResponseEntity<>(_order, HttpStatus.OK);
 
     }
-    @GetMapping(path="/orders/{id}", consumes =MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(path="/orders/{id}", consumes =MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Order> getOrder(@PathVariable("id") UUID id){
         Order _order = service.getOrder(id);
         return new ResponseEntity<>(_order,  HttpStatus.OK);
+    }
+
+    @PutMapping(path="/orders/{id}",  consumes =MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Order> updateOrder(@PathVariable("id") UUID id, @RequestBody Order order){
+        Order orderUpdated = service.updateOrder(id, order);
+
+        return new ResponseEntity<>(orderUpdated, HttpStatus.OK);
+    }
+    @DeleteMapping(path = "/orders/{id}",  consumes =MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<HttpStatus> deleteOrder(@PathVariable("id") UUID id) {
+
+        service.deleteOrder(id);
+        return new ResponseEntity<>( HttpStatus.NO_CONTENT);
+    }
+
+    @DeleteMapping("/games")
+    public ResponseEntity<HttpStatus> deleteAllGames() {
+        service.deleteAllOrders();
+
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }

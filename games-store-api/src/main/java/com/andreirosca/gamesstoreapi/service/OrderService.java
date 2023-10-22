@@ -26,4 +26,27 @@ public class OrderService {
     public Order getOrder(UUID id) {
         return repository.findById(id).orElseThrow(() -> new IllegalStateException("Not found Order with id = " + id));
     }
+
+    public Order updateOrder(UUID id, Order order) {
+        Order orderFound = repository.findById(id).orElseThrow(() -> new IllegalStateException("Not found Order with id = " + id));
+        orderFound.setOrderDate(order.getOrderDate());
+        orderFound.setOrderHistories(order.getOrderHistories());
+        orderFound.setOrderitem(order.getOrderitem());
+        orderFound.setAddress(order.getAddress());
+        orderFound.setCustomer(order.getCustomer());
+        orderFound.setTotal(order.getTotal());
+        orderFound.setSubTotal(order.getSubTotal());
+        orderFound.setShippingMethod(order.getShippingMethod());
+
+
+        return  orderFound;
+    }
+
+    public void deleteOrder(UUID id) {
+        repository.deleteById(id);
+    }
+
+    public void deleteAllOrders() {
+        repository.deleteAll();
+    }
 }

@@ -4,9 +4,11 @@ import com.andreirosca.gamesstoreapi.dto.InventoryRequest;
 import com.andreirosca.gamesstoreapi.dto.PublisherRequest;
 import java.io.IOException;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.UUID;
 
 import com.andreirosca.gamesstoreapi.model.*;
 import com.fasterxml.jackson.core.JsonParser;
@@ -17,7 +19,9 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectReader;
 import com.fasterxml.jackson.databind.deser.std.StdDeserializer;
+import com.fasterxml.jackson.databind.deser.std.UUIDDeserializer;
 import com.fasterxml.jackson.databind.node.DoubleNode;
+import jakarta.persistence.criteria.CriteriaBuilder;
 
 
 public class MyGameModel extends StdDeserializer<Game> {
@@ -41,23 +45,25 @@ public class MyGameModel extends StdDeserializer<Game> {
         ObjectMapper mapper = new ObjectMapper();
         String nameGame = node.get("name").asText();
         String descGame = node.get("description").asText();
-//        Genre genre = Genre.valueOf(node.get("genre").asText());
-//        Platform platform = Platform.valueOf(node.get("platform").asText());
-//        Condition condition = Condition.valueOf(node.get("condition").asText());
-        //Inventory inventory =mapper.convertValue(node.get("inventory"), Inventory.class);
+        Genre genre = Genre.valueOf(node.get("genre").asText());
+        Platform platform = Platform.valueOf(node.get("platform").asText());
+        Condition condition = Condition.valueOf(node.get("condition").asText());
+
         String namePublisher = node.get("publisher").get("name").asText();
         double rating  =node.get("rating").asDouble();
         double price = node.get("price").asDouble();
         String image = node.get("image").asText();
-//        String StockUsed = node.get("inventory").get("StockLevelUsed").asText();
-//        String StockNew = node.get("inventory").get("StockLevelNew").asText();
-//        LocalDate released =  node.get("released").asText();
+
+        ObjectMapper objectMapper = new ObjectMapper();
+
+        DateTimeFormatter formatters = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        LocalDate released =  LocalDate.parse(node.get("released").asText(),formatters);
         Set<Game> games = Collections.emptySet();
         Set<Developer> developers = Collections.emptySet();
         Set<OrderItem> orderItems = Collections.emptySet();
 
 
-       return new Game(nameGame, descGame,null, null, rating, image,null, price, null, developers,new Publisher(namePublisher,  games),null,orderItems);
 
+       return new Game(nameGame, descGame,genre, platform,rating, image, released, price, condition, developers, new Publisher(namePublisher, games),orderItems);
     }
 }

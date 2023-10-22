@@ -29,7 +29,7 @@ public class MyGenreDeserializer extends StdDeserializer<Genre> {
         final String jsonValue = jsonParser.getText();
         for (final Genre enumValue : Genre.values())
         {
-            if (enumValue.equals(jsonValue))
+            if (enumValue.value().equals(jsonValue))
             {
                 return enumValue;
             }

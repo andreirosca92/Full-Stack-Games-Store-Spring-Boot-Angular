@@ -1,9 +1,7 @@
 package com.andreirosca.gamesstoreapi.controller;
 
 
-import com.andreirosca.gamesstoreapi.helpers.MyGameModel;
-import com.andreirosca.gamesstoreapi.helpers.MyGenreDeserializer;
-import com.andreirosca.gamesstoreapi.helpers.MyPublisherModel;
+
 import com.andreirosca.gamesstoreapi.model.Game;
 import com.andreirosca.gamesstoreapi.model.Genre;
 import com.andreirosca.gamesstoreapi.model.Publisher;

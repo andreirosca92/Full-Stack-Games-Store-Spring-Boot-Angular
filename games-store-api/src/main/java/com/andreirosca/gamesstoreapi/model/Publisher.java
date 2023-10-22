@@ -1,7 +1,6 @@
 package com.andreirosca.gamesstoreapi.model;
 
-import com.andreirosca.gamesstoreapi.helpers.MyGameModel;
-import com.andreirosca.gamesstoreapi.helpers.MyPublisherModel;
+
 import com.fasterxml.jackson.annotation.*;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.deser.std.UUIDDeserializer;

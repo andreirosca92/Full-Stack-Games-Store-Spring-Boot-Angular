@@ -1,6 +1,7 @@
 package com.andreirosca.gamesstoreapi.model;
 
 
+import com.andreirosca.gamesstoreapi.model.user_account.UserAccount;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -17,21 +18,28 @@ import java.util.UUID;
 public class Customer {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
     @Column(name="customer_id")
     private UUID id;
 
-    @Column(name="firstName")
-    private String firstName;
+    @Column(name="url")
+    private String Url;
 
-    @Column(name="lastName")
-    private String lastName;
+    @Column(name="pec")
+    private String Pec;
 
-    @Column(name = "email")
-    private String email;
+    @Column(name="invoice")
+    private boolean invoice;
 
     @Column(name = "cell_phone")
     private String cellPhone;
+
+    @Column(name="tell_phone")
+    private String tellPhone;
+
+    @OneToOne
+    @MapsId
+    @JoinColumn(name = "user_id")
+    private UserAccount userAccount;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "customer", cascade = CascadeType.ALL)
     private Set<Order> orders;
