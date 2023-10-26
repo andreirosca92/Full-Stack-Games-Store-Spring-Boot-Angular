@@ -1,121 +1,160 @@
 
 
+    <h2 id="title" >Create new Game: </h2>
+    <div *ngIf="isValidFormSubmitted" class="submitted"> Form submitted successfully.</div>
+    <div class="game" >
+      <form  [formGroup]="GamesForm"  method="post" (ngSubmit)="onFormSubmit()">
+        <mat-grid-list cols="3" rows="10" rowHeight="200px">
+          <mat-grid-tile >
+            
+            <mat-form-field >
+            
+            <mat-label>Name</mat-label>
+            <input  matInput formControlName="name" >
+            <p  *ngIf="name?.invalid && isValidFormSubmitted != null && !isValidFormSubmitted" class="error">name is required</p>
 
-  <div *ngIf="!isGameAdded">
-    <h2 style="color: rgb(10, 3, 17);">Create new Game: </h2>
-    <mat-grid-list cols="4" rows="8" rowHeight="100px"  gutterSize="10px">
-      <mat-grid-tile colspan="1">
-        <mat-form-field >
-        <mat-label>Name</mat-label>
-        <input  matInput [(ngModel)]="games.name">
-        </mat-form-field>
-      </mat-grid-tile>
-      <mat-grid-tile colspan="1">
-        <mat-form-field >
-          <mat-label>Generies</mat-label>
-          <mat-select [(ngModel)]="games.genre">
-           
-            <mat-option *ngFor="let gen of genre ? genre : []" [value]="gen" >{{gen}}</mat-option>
-          </mat-select>
+            </mat-form-field> 
+          </mat-grid-tile> 
+       
+        <mat-grid-tile >
+          <mat-form-field >
+            <mat-label>Generies</mat-label>
+            <mat-select formControlName="genre">
+             
+              <mat-option   *ngFor="let gen of generies ? generies : []" [value]="gen" >{{gen}}</mat-option>
+            </mat-select>
+            <p  *ngIf="genre?.invalid && isValidFormSubmitted != null && !isValidFormSubmitted" class="error">genre is required.</p>
+            </mat-form-field>
+        </mat-grid-tile>
+
+        <mat-grid-tile >
+  
+          <mat-form-field floatLabel="always" >
+            <mat-label>Price</mat-label>
+            <input  matInput type="number"  formControlName="price"  class="example-right-align" placeholder="0">
+            <p  *ngIf="price?.invalid && isValidFormSubmitted != null && !isValidFormSubmitted" class="error">price is required.</p>
+            <span matTextPrefix>€&nbsp;</span>
+            <span matTextSuffix>.00</span>
           </mat-form-field>
-      </mat-grid-tile>
-      <mat-grid-tile colspan="1">
-
-        <mat-form-field floatLabel="always">
-          <mat-label>Price</mat-label>
-          <input [(ngModel)]="games.price" matInput type="number" class="example-right-align" placeholder="0">
-          <span matTextPrefix>€&nbsp;</span>
-          <span matTextSuffix>.00</span>
-        </mat-form-field>
-
-      </mat-grid-tile>
-      <mat-grid-tile colspan="1">
-        <mat-form-field >
-          <mat-label>Rating</mat-label>
-          <mat-select [(ngModel)]="games.rating">
-        
-            <mat-option *ngFor="let rt of rating" [value]="rt" >{{rt}}</mat-option>
-          </mat-select>
-          </mat-form-field>
-
-      </mat-grid-tile>
-      <mat-grid-tile colspan="2">
-        
-       <mat-form-field >
-          <mat-label>Platform</mat-label>
-          <mat-select  [(ngModel)]="games.platform">
-      
-            <mat-option *ngFor="let plt of platform" [value]="plt" >{{plt}}</mat-option>
-          </mat-select>
-        </mat-form-field>
-      </mat-grid-tile>
-      <mat-grid-tile colspan="2">
-        <mat-form-field>
-          <mat-label>Condition</mat-label>
-          <mat-select [(ngModel)]="games.condition">
+  
+        </mat-grid-tile>
+        <mat-grid-tile >
+          <mat-form-field >
+            <mat-label>Rating</mat-label>
+            <mat-select formControlName="rating">
           
-            <mat-option *ngFor="let cnd of condition" [value]="cnd" >{{cnd}}</mat-option>
-          </mat-select>
-        </mat-form-field>
-      </mat-grid-tile>
-      <mat-grid-tile colspan="1">
-        <mat-form-field >
-          <mat-label>Released Date</mat-label>
-          <input [(ngModel)]="date" matInput [matDatepicker]="picker"  placeholder="Inserisci la data di rilascio?" readonly>
-          <mat-hint>MM/DD/YYYY</mat-hint>
-          <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
-          <mat-datepicker #picker></mat-datepicker>
-      </mat-form-field>
-      </mat-grid-tile>
-      <mat-grid-tile colspan="3">
-        <mat-form-field >
-          <mat-label>Image Url</mat-label>
-          <input matInput [(ngModel)]="games.image">
-        </mat-form-field>
-      </mat-grid-tile>
-      <mat-grid-tile colspan="4" rowspan="2">
-        <mat-form-field>
-          <mat-label>Description</mat-label>
-          <textarea 
-            autosize
-           matInput [(ngModel)]="games.description"></textarea>
-        </mat-form-field>
-      </mat-grid-tile>
-      <mat-grid-tile colspan="3">
-        <mat-form-field >
-        <mat-label>Publisher</mat-label>
-        <input  matInput [(ngModel)]="games.publisher">
-        </mat-form-field>
-      </mat-grid-tile>
-      <mat-grid-tile colspan="2">
-        <button mat-raised-button color="primary" button="submit" (click)="addGame()">Create</button>
-      </mat-grid-tile>
-      <mat-grid-tile colspan="1">
-        <div *ngIf="isGameAdded">
-          <h3>New Games added!</h3>
-          <button mat-raised-button color="accent" button="submit" (click)="newGame()">Accent</button>
-        </div>
-      </mat-grid-tile>
-    </mat-grid-list>
-
-
-  </div>
-
- 
-    
-
-
-
-    
-
-    
-
-
-    
+              <mat-option   *ngFor="let rt of ratings" [value]="rt" >{{rt}}</mat-option>
+            </mat-select>
+            <p  *ngIf="rating?.invalid && isValidFormSubmitted != null && !isValidFormSubmitted" class="error">rating is required.</p>
+            </mat-form-field>
   
-
-    
+        </mat-grid-tile>
+        <mat-grid-tile>
+          
+         <mat-form-field >
+            <mat-label>Platform</mat-label>
+            <mat-select  formControlName="platform" >
+        
+              <mat-option  *ngFor="let plt of platforms" [value]="plt" >{{plt}}</mat-option>
+            </mat-select>
+            <p  *ngIf="platform?.invalid && isValidFormSubmitted != null && !isValidFormSubmitted" class="error">platform is required.</p>
+          </mat-form-field>
+        </mat-grid-tile>
+        <mat-grid-tile >
+          <mat-form-field>
+            <mat-label>Condition</mat-label>
+            <mat-select formControlName="condition">
+            
+              <mat-option    *ngFor="let cnd of conditions" [value]="cnd" >{{cnd}}</mat-option>
+            </mat-select>
+            <p  *ngIf="condition?.invalid && isValidFormSubmitted != null && !isValidFormSubmitted" class="error">platform is required.</p>
+          </mat-form-field>
+        </mat-grid-tile>
+        <mat-grid-tile >
+          <mat-form-field >
+            <mat-label>Released Date</mat-label>
+            <input   matInput [matDatepicker]="picker"  formControlName="released"  placeholder="Inserisci la data di rilascio?" readonly>
+            <p  *ngIf="released?.invalid && isValidFormSubmitted != null && !isValidFormSubmitted" class="error">platform is required.</p>
+            <mat-hint>DD/MM/YYYY</mat-hint>
+            <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+        </mat-grid-tile>
+        <mat-grid-tile >
+          <mat-form-field >
+            <mat-label>Image Url</mat-label>
+            <input matInput formControlName="image"  >
+            <p  *ngIf="image?.invalid && isValidFormSubmitted != null && !isValidFormSubmitted" class="error">platform is required.</p>
+          </mat-form-field>
+        </mat-grid-tile>
+        <mat-grid-tile >
+          <mat-form-field >
+            <mat-label>Description</mat-label>
+            <textarea matInput placeholder="Description" formControlName="description"  ></textarea>
+            <p  *ngIf="description?.invalid && isValidFormSubmitted != null && !isValidFormSubmitted" class="error">platform is required.</p>
+          </mat-form-field>
+        </mat-grid-tile>
+        <mat-grid-tile >
+          <mat-form-field  >
+          <mat-label>Publisher</mat-label>
+          <input  matInput  formControlName="name" >
+          <p  *ngIf="publisher_name?.invalid && isValidFormSubmitted != null && !isValidFormSubmitted" class="error">platform is required.</p>
+          </mat-form-field>
+        
+        </mat-grid-tile>
+        <mat-grid-tile colspan="2">
+          <mat-error *ngIf="developer.hasError('maxLength')">Max 3 array</mat-error>
+            <ng-container formArrayName="developer"  >
+              
+              <div *ngFor="let _ of developer.controls; index as i">
   
+                   <ng-container [formGroupName]="i">
+  
+                    
+                      <mat-form-field  >
+                      <mat-label>Developer</mat-label>
+                    <input matInput formControlName="company_name" >
+                    
+                  </mat-form-field>
+               
+          
+                   </ng-container>
+                  
+                   
+                    <button mat-raised-button color="primary" type="button" (click)="deleteDeveloper(i)">Delete</button>
+                  
+                  
+  
+                    </div>
+              
+           
+                <button mat-raised-button color="primary" type="button" (click)="addDeveloper()">Add More Developer</button>
+            
+              
+     
+          </ng-container> 
+         
+          </mat-grid-tile>
+     
+          <mat-grid-tile colspan="2" >
+            <button mat-raised-button color="primary" button="submit" >Create</button>
+          </mat-grid-tile>
+          <mat-grid-tile colspan="2" >
+           
+              <button mat-raised-button color="accent" type="button" (click)="resetGamesForm()">RESET</button>
+
+          </mat-grid-tile>
+
+
+      </mat-grid-list>  
+      </form>
+    </div>
+    
+    
+
+
+
+
  
     
  

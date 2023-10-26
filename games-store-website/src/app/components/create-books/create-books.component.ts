@@ -1,9 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { GamesService } from 'src/app/services/games.service';
-import { Condition, Games, Genre, Publisher} from 'src/app/models/Games';
+import { Condition, Genre} from 'src/app/models/Games';
 import { Platform } from 'src/app/models/Games';
+import { Input } from '@angular/core';
 
+import { Observable } from 'rxjs';
 
+import { ArrayValidators } from '../helpers/minLengthArray';
+import { Games } from 'src/app/models/Games';
+import { FormGroup, FormArray, Validators, FormBuilder } from '@angular/forms';
 @Component({
   selector: 'app-create-books',
   templateUrl: './create-books.component.html',
@@ -13,56 +18,170 @@ import { Platform } from 'src/app/models/Games';
 })
 export class CreateBooksComponent implements OnInit{
  
-  
-  genre:string[] = Object.keys(Genre).filter((value:any)=>isNaN(value));
-  platform:string[] = Object.keys(Platform).filter((value:any)=>isNaN(value));
-  condition: string[] =Object.keys(Condition).filter((value:any)=>isNaN(value));
+  @Input() addAfter:any;
+  generies:string[] = Object.keys(Genre).filter((value:any)=>isNaN(value));
+  platforms:string[] = Object.keys(Platform).filter((value:any)=>isNaN(value));
+  conditions: string[] =Object.keys(Condition).filter((value:any)=>isNaN(value));
   date: any;
-  rating:number[]=[1,2,3,4,5,6,7,8,9,10];
-  games:Games = {
-    id:'',
-    name: '',
-    description:'',
-    price: 0,
-    rating: 0,
-    genre: undefined,
-    platform: undefined,
-    condition: undefined,
-    released: undefined,
-    publisher: undefined,
-    inventory: undefined
-    
+  ratings:number[]=[1,2,3,4,5,6,7,8,9,10];
 
-  };
+  
+  GamesForm = {} as FormGroup;
+	isValidFormSubmitted: boolean | null = null;
+	allGames: Observable<any[]>;
+
+  // gamesForm:FormGroup= new FormGroup({
+  //   name: new FormControl('', Validators.required),
+  //   description: new FormControl('', Validators.required),
+  //   released: new FormControl('',Validators.required),
+  //   image: new FormControl('', Validators.required),
+  //   price: new FormControl('', Validators.required),
+  //   rating: new FormControl('', Validators.required),
+  //   genre: new FormControl('', Validators.required),
+  //   condition: new FormControl('', Validators.required),
+  //   platform: new FormControl('',Validators.required),
+  //   inventory: new FormGroup({
+  //     snew: new FormControl(''),
+  //     sused: new FormControl(''),
+      
+  //   }),
+    
+  //   publisher: new FormGroup({
+  //     name: new FormControl('')
+  //   }),
+  //   developer: new FormArray([this.createDevFormGroup()], [Validators.required, Validators.maxLength(3)])
+  // });
+  // createDevFormGroup(){
+  //   return new FormGroup({
+  //     company_name: new FormControl('', [Validators.required])
+  //   })
+  // }
+
   isGameAdded = false;
   
-  constructor(private gamesService: GamesService){
-
+  constructor(private gamesService: GamesService , private formBuilder: FormBuilder){
+    this.allGames = gamesService.list();
   }
  
-  ngOnInit(): void {
-    this.date = new Date();
+  
+ 
+  ngOnInit(){
+    this.GamesForm = this.formBuilder.group({
+			name: ['', Validators.required],
+      description: ['', Validators.required],
+      price: ['', Validators.required],
+      rating: ['', Validators.required],
+      released: ['', Validators.required],
+      image: ['', Validators.required],
+      genre: ['', Validators.required],
+      condition: ['', Validators.required],
+      platform: ['', Validators.required],
+      inventory: this.formBuilder.group({
+        snew: ['', Validators.required],
+        sused: ['', Validators.required]
+      }),
+      publisher: this.formBuilder.group({
+        name: ['', Validators.required]
+      }),
+			developer: this.formBuilder.array(
+				[this.createDevFormGroup()],
+				[Validators.required,  ArrayValidators.maxLength(2)])
+		});
+
    }
+  createDevFormGroup() {
+    
+      return this.formBuilder.group({
+        company_name: ['', [Validators.required]]
+      })
+    
+   
+  }
+
+  get name() {
+		return this.GamesForm.get('name');
+	}
+  get description(){
+    return this.GamesForm.get('description');
+  }
+  get genre(){
+    return this.GamesForm.get('genre');
+  }
+  get price(){
+    return this.GamesForm.get('price');
+  }
+  get image(){
+    return this.GamesForm.get('image');
+  }
+  get released(){
+    return this.GamesForm.get('released');
+  }
+  get rating(){
+    return this.GamesForm.get('rating');
+  }
+  get platform(){
+    return this.GamesForm.get('platform');
+  }
+  get condition(){
+    return this.GamesForm.get('condition');
+  }
+  get publisher_name(){
+    return this.GamesForm.get('publisher')?.get('name');
+  }
+	get developer(): FormArray {
+		return this.GamesForm.get('developer') as FormArray;
+	}
+	addDeveloper() :void{
+      if(!(this.developer.hasError('maxLength'))){
+        let devForm = this.createDevFormGroup();
+      this.developer.push(devForm);
+      }
+      return
+	}
+	deleteDeveloper(idx: number) {
+		this.developer.removeAt(idx);
+	}
+	onFormSubmit() {
+		this.isValidFormSubmitted = false;
+		if (this.GamesForm.invalid) {
+			return;
+		}
+		this.isValidFormSubmitted = true;
+		let games: Games = this.GamesForm.value;
+		this.addGame(games);
+		this.GamesForm.reset();
+	}
+	resetGamesForm() {
+		(document.querySelector("form") as HTMLFormElement).reset();
+	}
+   
+  
+//   padTo2Digits(num:any) {
+//     return num.toString().padStart(2, '0');
+//   }
+  
+// formatDate(date:any) {
+//     return [
+//       date.getFullYear(),
+//       this.padTo2Digits(date.getMonth() + 1),
+//       this.padTo2Digits(date.getDate())
+      
+//       ,
+//     ].join('-');
+//   }
+
+
+  
 
   // Add New
-  addGame(): void {
-    const data ={
-    name: this.games.name,
-    description:this.games.description,
-    price: this.games.price,
-    rating: this.games.rating,
-    genre: this.games.genre,
-    platform: this.games.platform,
-    condition: this.games.condition,
-    released: this.date,
-    publisher: this.games.publisher,
-    }
-    if (!data.name) {
+  addGame(games: Games): void {
+    
+    if (!games.name) {
       alert('Please add title!');
       return;
     }
 
-    this.gamesService.create(data)
+    this.gamesService.create(games)
     .subscribe({
       next: (res) => {
         console.log(res);
@@ -75,21 +194,7 @@ export class CreateBooksComponent implements OnInit{
   // Reset on adding new
   newGame(): void {
     this.isGameAdded = false;
-    this.games = {
-      id:'',
-      name: '',
-      description:'',
-      price: 0,
-      rating: 0,
-      genre: undefined,
-      platform: undefined,
-      condition: undefined,
-      released: undefined,
-      publisher: undefined,
-      inventory: undefined
-      
-  
-    };
-  }
+    
+}
 
 }

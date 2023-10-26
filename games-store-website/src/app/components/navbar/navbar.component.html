@@ -1,27 +1,53 @@
-<div>
-    <nav class="navbar navbar-expand navbar-dark bg-primary">
-      <a href="#" class="navbar-brand">Games Shop</a>
-      <div class="navbar-nav mr-auto">
-        <li class="nav-item" routerLink="home" routerLinkActive="active">
-          <a href="javascript:void(0)" class="nav-link">Home</a>
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <div class="container-fluid">
+        <ul class="navbar-nav">
+          <!-- Icon dropdown -->
+          <div id="dropdown-component">
+            <div class="selected" (click)="toggleMenu()">
+              <span class={{selectedValueFlag}}></span><span>{{selectedValueLanguage}}</span>
+              
+              <span [ngClass]="{ 'arrow-down': menuOpen }"></span>
+            </div>
+            <div class="menu-wrapper">
+              <ul #listElem>
+                <li *ngFor="let elem of listElems;" (click)="clickHandler(elem)">
+                  <a href="/home/{{elem.language}}" clickDirective><span><span class={{elem.flag}}></span>{{elem.language}}</span></a>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <a href="home" class="navbar-brand">Games Shop</a>
+        <li class="nav-item" [routerLink]="['/home']" routerLinkActive="active">
+          <button type="link" class="nav-link">Home</button>
         </li>
-        <li class="nav-item" routerLink="about" routerLinkActive="active">
-          <a href="javascript:void(0)" class="nav-link">About</a>
+        <li class="nav-item" [routerLink]="['/about']" routerLinkActive="active">
+          <button type="link"  class="nav-link">About</button>
         </li>
 
-        <li class="nav-item" routerLink="games" routerLinkActive="active">
-          <a href="javascript:void(0)" class="nav-link">List of Games</a>
+        <li class="nav-item" [routerLink]="['/games']" routerLinkActive="active">
+          <button type="link"  class="nav-link">List of Games</button>
         </li>
-        <li class="nav-item" routerLink="add" routerLinkActive="active">
-          <a href="javascript:void(0)" class="nav-link">Add a Games</a>
+        <li class="nav-item" [routerLink]="['/add']" routerLinkActive="active">
+          <button  type="link" class="nav-link">Add a Games</button>
         </li>
-        <li class="nav-item" routerLink="login" routerLinkActive="active">
-          <a href="javascript:void(0)" class="nav-link">Login</a>
+        <li class="nav-item" [routerLink]="['/login']" routerLinkActive="active">
+          <button type="link"  class="nav-link">Login</button>
         </li>
-        <li class="nav-item" routerLink="register" routerLinkActive="active">
-          <a href="javascript:void(0)" class="nav-link">Register</a>
+        <li class="nav-item" [routerLink]="['/register']" routerLinkActive="active">
+          <button  type="link" class="nav-link">Register</button>
         </li>
-      </div>
+        <!--Badge-->
+        <li class="nav-item" id="badge"  [routerLink]="['/cart']"  routerLinkActive="active">
+          <a class="nav-link" >
+            <span class="badge badge-pill bg-danger">0</span>
+            <span><fa-icon [icon]="faShoppingCart" ></fa-icon></span>
+          </a>
+        </li>
+        </ul>
+        
+ 
+        </div>
     </nav>
     
-  </div>

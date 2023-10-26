@@ -57,7 +57,7 @@ public class OrderController {
         return new ResponseEntity<>( HttpStatus.NO_CONTENT);
     }
 
-    @DeleteMapping("/games")
+    @DeleteMapping("/orders")
     public ResponseEntity<HttpStatus> deleteAllGames() {
         service.deleteAllOrders();
 

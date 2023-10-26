@@ -1,7 +1,7 @@
 package com.andreirosca.gamesstoreapi.model;
 
 
-import com.andreirosca.gamesstoreapi.model.user_account.UserAccount;
+//import com.andreirosca.gamesstoreapi.model.user_account.UserAccount;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -36,10 +36,10 @@ public class Customer {
     @Column(name="tell_phone")
     private String tellPhone;
 
-    @OneToOne
-    @MapsId
-    @JoinColumn(name = "user_id")
-    private UserAccount userAccount;
+//    @OneToOne
+//    @MapsId
+//    @JoinColumn(name = "user_id")
+//    private UserAccount userAccount;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "customer", cascade = CascadeType.ALL)
     private Set<Order> orders;

@@ -13,13 +13,12 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatDatepickerModule} from '@angular/material/datepicker';
-
+import { ReactiveFormsModule } from '@angular/forms';
 import {MatNativeDateModule} from '@angular/material/core';
-import {FormsModule} from '@angular/forms';
-import {MatInputModule} from '@angular/material/input';
+
 import {NgFor} from '@angular/common';
 import {MatSelectModule} from '@angular/material/select';
-import {MatFormFieldModule} from '@angular/material/form-field';
+
 import {MatGridListModule} from '@angular/material/grid-list';
 
 import {MatListModule} from '@angular/material/list';
@@ -36,6 +35,14 @@ import {MatDividerModule} from '@angular/material/divider';
 import {MatButton, MatButtonModule} from '@angular/material/button';
 import {MatIconModule} from '@angular/material/icon';
 import {AutosizeModule} from 'ngx-autosize';
+import { FormsModule } from '@angular/forms';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from "@angular/material/form-field";
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome'
+
+import { MomentDateModule } from '@angular/material-moment-adapter';
+import { CartComponent } from './components/cart/cart.component';
+import { ClickDirectiveDirective } from './components/directive/click-directive.directive';
 @NgModule({
   declarations: [
     
@@ -50,9 +57,17 @@ import {AutosizeModule} from 'ngx-autosize';
     FooterComponent,
     RegisterComponent,
     FileUploadComponent,
-    LayoutComponent
+    LayoutComponent,
+    CartComponent,
+    ClickDirectiveDirective
   ],
   imports: [
+    FontAwesomeModule,
+    MomentDateModule,
+    MatFormFieldModule,
+    MatInputModule,
+    ReactiveFormsModule,
+    FormsModule,
     AutosizeModule,
     MatDatepickerModule,
     MatInputModule,

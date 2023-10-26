@@ -11,3 +11,27 @@ input.example-right-align::-webkit-inner-spin-button {
 input.example-right-align {
   -moz-appearance: textfield;
 }
+.developer {
+  border: 2px solid blue;
+  width: 275px;
+}
+.error{
+  color: red;
+} 
+.submitted{
+  color: green;
+  font-size: 20px;
+} 
+#title {
+  content: 'This is your heading';
+  background: #031836;
+  width: 100%;
+  display: block;
+  padding: 10px 20px;
+  color: rgb(243, 234, 234);
+  font-family: Arial;
+  font-size: 28px;
+  text-align: center;
+
+
+}

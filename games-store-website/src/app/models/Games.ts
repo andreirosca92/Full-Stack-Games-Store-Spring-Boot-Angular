@@ -1,5 +1,12 @@
 
-interface Inventory{
+export interface Developer{
+    id: string,
+    company_name : string,
+    game?: Games[]
+}
+
+export interface Inventory{
+    id: string,
     StockLevelUsed: string,
     StockLevelNew: string
 }
@@ -38,11 +45,12 @@ export interface Games{
     inventory?: Inventory,
     publisher?: Publisher,
     image?: string,
+    developer?: Developer[],
 
 
 }
 export interface Publisher{
-    id: string,
-    name: string,
-    game: Games[]
+    id?: string,
+    name?: string,
+    game?: Games[]
 }

@@ -5,13 +5,13 @@ import jakarta.persistence.Embeddable;
 
 import java.io.Serializable;
 import java.util.UUID;
-
-@Embeddable
-public class UserRightKey implements Serializable {
-
-    @Column(name="user_id")
-    private UUID userId;
-
-    @Column(name="right_id")
-    private UUID rightId;
-}
+//
+//@Embeddable
+//public class UserRightKey implements Serializable {
+//
+//    @Column(name="user_id")
+//    private UUID userId;
+//
+//    @Column(name="right_id")
+//    private UUID rightId;
+//}
