@@ -10,6 +10,7 @@ import { RegisterComponent } from './components/register/register.component';
 import { PagenotfoundComponent } from './components/pagenotfound/pagenotfound.component';
 import { HomeComponent } from './components/home/home.component';
 import { CartComponent } from './components/cart/cart.component';
+import { ProductsComponent } from './components/products/products.component';
 const routes: Routes = [
 { path: '', redirectTo: 'home', pathMatch: 'full' },
 {path: 'home', component: HomeComponent,
@@ -19,6 +20,7 @@ const routes: Routes = [
 ]
 },
 { path: 'games', component: ListComponent },
+{path: 'products', component:ProductsComponent},
 { path: 'games/:id', component: DetailsComponent },
 { path: 'add', component: CreateBooksComponent },
 {path: 'about', component: AboutComponent},

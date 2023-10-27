@@ -6,23 +6,34 @@
 
 }
 #dropdown-component {
-    margin: 8px auto 0 auto;
+    margin: 8px 6px 4px auto;
     font: normal 12px sans-serif;
     width: 60px;
+  
     position: relative;
     .selected {
       z-index: 10;
       cursor: pointer;
       margin: 0 auto;
-      border: 1px solid rgb(6, 30, 96);
-      padding: 2px;
-      border-radius: 3px;
-      span:first-child {
-        margin-right: 6px;
+      border: 1px solid rgb(215, 216, 219);
+      
+      
+      border-radius: 8px;
+     
+      span:first-child{
+      
+        margin-left: 12px;
+     
       }
+      span:nth-child(2){
+       
+        margin-left: 3px;
+        
+      }
+      
       span:last-child {
         float: right;
-        transition: transform 0.2s;
+        transition: transform 0.4s;
       }
     }
     .arrow-down {
@@ -30,14 +41,16 @@
     }
     .menu-wrapper {
       overflow: hidden;
-      margin-top: 3px;
+      margin-top: 0px;
       position: absolute;
       width: 100%;
       ul {
         list-style-type: none;
         width: calc(100% - 4px);
+    
+        border-radius: 8px;
         padding: 0;
-        border: 1px solid #000;
+        border: 1px solid rgb(215, 216, 219);
         border-bottom-left-radius: 4px;
         border-bottom-right-radius: 4px;
         overflow: hidden;
@@ -52,13 +65,14 @@
             text-decoration: none;
             background-color: rgb(229, 233, 243);
             width: 100%;
+     
             display: block;
             color: black;
             padding: 5px 0 5px 15px;
             box-sizing: border-box;
             transition: background-color 0.2s;
             &:hover {
-              background-color: rgb(140, 111, 179);
+              background-color: rgb(251, 103, 10);
             }
           }
         }

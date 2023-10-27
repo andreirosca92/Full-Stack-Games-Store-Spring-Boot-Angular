@@ -1,8 +1,4 @@
 
-
-mat-form-field {
-  min-width: 90%;
-}
 input.example-right-align::-webkit-outer-spin-button,
 input.example-right-align::-webkit-inner-spin-button {
   display: none;
@@ -24,14 +20,21 @@ input.example-right-align {
 } 
 #title {
   content: 'This is your heading';
-  background: #031836;
+  background-color: rgba(227, 217, 217, 0.916);
   width: 100%;
   display: block;
-  padding: 10px 20px;
-  color: rgb(243, 234, 234);
+  padding: 20px 30px;
+  color: rgb(15, 15, 15);
   font-family: Arial;
   font-size: 28px;
   text-align: center;
+  margin-bottom: 0%;
 
 
+}
+#forms{
+  margin-top: auto;
+  background-color: white;
+  padding: 8px 8px 0px 8px;
+  border: 1px solid rgb(51, 44, 44);
 }

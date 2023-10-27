@@ -30,37 +30,12 @@ export class CreateBooksComponent implements OnInit{
 	isValidFormSubmitted: boolean | null = null;
 	allGames: Observable<any[]>;
 
-  // gamesForm:FormGroup= new FormGroup({
-  //   name: new FormControl('', Validators.required),
-  //   description: new FormControl('', Validators.required),
-  //   released: new FormControl('',Validators.required),
-  //   image: new FormControl('', Validators.required),
-  //   price: new FormControl('', Validators.required),
-  //   rating: new FormControl('', Validators.required),
-  //   genre: new FormControl('', Validators.required),
-  //   condition: new FormControl('', Validators.required),
-  //   platform: new FormControl('',Validators.required),
-  //   inventory: new FormGroup({
-  //     snew: new FormControl(''),
-  //     sused: new FormControl(''),
-      
-  //   }),
-    
-  //   publisher: new FormGroup({
-  //     name: new FormControl('')
-  //   }),
-  //   developer: new FormArray([this.createDevFormGroup()], [Validators.required, Validators.maxLength(3)])
-  // });
-  // createDevFormGroup(){
-  //   return new FormGroup({
-  //     company_name: new FormControl('', [Validators.required])
-  //   })
-  // }
 
   isGameAdded = false;
   
   constructor(private gamesService: GamesService , private formBuilder: FormBuilder){
     this.allGames = gamesService.list();
+ 
   }
  
   
@@ -87,6 +62,7 @@ export class CreateBooksComponent implements OnInit{
 				[this.createDevFormGroup()],
 				[Validators.required,  ArrayValidators.maxLength(2)])
 		});
+    
 
    }
   createDevFormGroup() {
@@ -135,6 +111,7 @@ export class CreateBooksComponent implements OnInit{
       if(!(this.developer.hasError('maxLength'))){
         let devForm = this.createDevFormGroup();
       this.developer.push(devForm);
+     
       }
       return
 	}
@@ -155,21 +132,6 @@ export class CreateBooksComponent implements OnInit{
 		(document.querySelector("form") as HTMLFormElement).reset();
 	}
    
-  
-//   padTo2Digits(num:any) {
-//     return num.toString().padStart(2, '0');
-//   }
-  
-// formatDate(date:any) {
-//     return [
-//       date.getFullYear(),
-//       this.padTo2Digits(date.getMonth() + 1),
-//       this.padTo2Digits(date.getDate())
-      
-//       ,
-//     ].join('-');
-//   }
-
 
   
 

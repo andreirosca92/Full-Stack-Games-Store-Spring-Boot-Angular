@@ -1,43 +1,114 @@
-<!-- <div class="card">
-    <h4 class="card-header">Register</h4>
-    <div class="card-body">
-        <form [formGroup]="form" (ngSubmit)="onSubmit()">
-            <div class="mb-3">
-                <label class="form-label">First Name</label>
-                <input type="text" formControlName="firstName" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.firstName.errors }" />
-                <div *ngIf="submitted && f.firstName.errors" class="invalid-feedback">
-                    <div *ngIf="f.firstName.errors.required">First Name is required</div>
-                </div>
-            </div>
-            <div class="mb-3">
-                <label class="form-label">Last Name</label>
-                <input type="text" formControlName="lastName" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.lastName.errors }" />
-                <div *ngIf="submitted && f.lastName.errors" class="invalid-feedback">
-                    <div *ngIf="f.lastName.errors.required">Last Name is required</div>
-                </div>
-            </div>
-            <div class="mb-3">
-                <label class="form-label">Username</label>
-                <input type="text" formControlName="username" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.username.errors }" />
-                <div *ngIf="submitted && f.username.errors" class="invalid-feedback">
-                    <div *ngIf="f.username.errors.required">Username is required</div>
-                </div>
-            </div>
-            <div class="mb-3">
-                <label class="form-label">Password</label>
-                <input type="password" formControlName="password" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.password.errors }" />
-                <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
-                    <div *ngIf="f.password.errors.required">Password is required</div>
-                    <div *ngIf="f.password.errors.minlength">Password must be at least 6 characters</div>
-                </div>
-            </div>
-            <div>
-                <button [disabled]="loading" class="btn btn-primary">
-                    <span *ngIf="loading" class="spinner-border spinner-border-sm me-1"></span>
-                    Register
+<!-- Section: Design Block -->
+<section class="text-center mb-5">
+    <!-- Background image -->
+    <div class="p-5 bg-image" style="
+          background-image: url('../../../assets/image/foresta.jpg');
+          height: 400px;
+          width: 1600px;
+          "></div>
+    <!-- Background image -->
+  
+    <div class="card mx-4 mx-md-5 shadow-5-strong" style="
+          margin-top: -100px;
+          background: hsla(0, 15%, 95%, 0.8);
+          backdrop-filter: blur(30px);
+          ">
+      <div class="card-body py-5 px-md-5">
+  
+        <div class="row d-flex justify-content-center">
+          <div class="col-12">
+            <h2 class="fw-bold mb-5">Sign up now</h2>
+            <form fxLayout="column" fxLayoutGap="2%">
+              <!-- 2 column grid layout with text inputs for the first and last names -->
+              
+               
+               <div fxLayout="row">
+                <mat-form-field fxFlex="50" class="pr-4">
+                  <mat-label>First Name</mat-label>
+                  <input matInput placeholder="Enter your First Name">
+                </mat-form-field>
+                <mat-form-field fxFlex ="50" class="pl-4">
+                  <mat-label>Last Name</mat-label>
+                  <input matInput placeholder="Enter your Last Name" >
+                </mat-form-field>
+               
+               </div>
+                  
+           
+            
+               
+                  
+                    
+             
+           
+           
+  
+              <!-- Email input -->
+              <div fxLayout="row" fxLayoutAlign="center center">
+                <mat-form-field  fxFlex="50">
+                  <mat-label>Email</mat-label>
+                  <input matInput placeholder="Enter your email" >
+                </mat-form-field>
+              </div>
+  
+              <!-- Password input -->
+              <div fxLayout="row" fxLayoutAlign="center center" >
+                <mat-form-field   fxFlex="50">
+                  <mat-label>Enter your password</mat-label>
+                  <input matInput [type]="hide ? 'password' : 'text'">
+                  <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                    <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                  </button>
+                </mat-form-field>
+              </div>
+              
+              <div fxLayout="row" fxLayoutAlign="center center" >
+                <!-- Repeat Password input -->
+              <mat-form-field fxFlex="50">
+                <mat-label>Renter your password</mat-label>
+                <input matInput [type]="hide ? 'password' : 'text'">
+                <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                  <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
                 </button>
-                <a routerLink="../login" class="btn btn-link">Cancel</a>
-            </div>
-        </form>
+              </mat-form-field>
+              </div>
+              
+  
+              <!-- Checkbox -->
+              <div class="form-check d-flex justify-content-center mb-4">
+                <mat-checkbox class="example-margin pr-2">Subscribe to our newsletter</mat-checkbox>
+              </div>
+  
+              <!-- Submit button -->
+              <div fxLayout="row" fxLayoutAlign="center center" >
+                <button fxFlex="50" class="btn btn-lg btn-block text-white" mat-raised-button style="background-color: #0941bc;"
+            type="submit">Sign up</button>
+              </div>
+            
+  
+              <!-- Register buttons -->
+              <div class="text-center">
+                <p>or sign up with:</p>
+                <button type="button" class="btn btn-link btn-floating mx-1">
+                  <fa-icon [icon]="faFacebook"></fa-icon>
+                </button>
+  
+                <button type="button" class="btn btn-link btn-floating mx-1">
+                  <fa-icon [icon]="faGoogle"></fa-icon>
+                </button>
+  
+                <button type="button" class="btn btn-link btn-floating mx-1">
+                  <fa-icon [icon]="faTwitter"></fa-icon>
+                </button>
+  
+                <button type="button" class="btn btn-link btn-floating mx-1">
+                  <fa-icon [icon]="faGithub"></fa-icon>
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
     </div>
-</div> -->
+  </section>
+  <!-- Section: Design Block -->

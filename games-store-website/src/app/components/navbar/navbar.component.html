@@ -5,7 +5,8 @@
           <!-- Icon dropdown -->
           <div id="dropdown-component">
             <div class="selected" (click)="toggleMenu()">
-              <span class={{selectedValueFlag}}></span><span>{{selectedValueLanguage}}</span>
+              <span class={{selectedValueFlag}}></span>
+              <span>{{selectedValueLanguage}}</span>
               
               <span [ngClass]="{ 'arrow-down': menuOpen }"></span>
             </div>
@@ -29,6 +30,9 @@
         <li class="nav-item" [routerLink]="['/games']" routerLinkActive="active">
           <button type="link"  class="nav-link">List of Games</button>
         </li>
+        <li class="nav-item" [routerLink]="['/products']" routerLinkActive="active">
+          <button type="link"  class="nav-link">Games</button>
+        </li>
         <li class="nav-item" [routerLink]="['/add']" routerLinkActive="active">
           <button  type="link" class="nav-link">Add a Games</button>
         </li>
@@ -40,10 +44,10 @@
         </li>
         <!--Badge-->
         <li class="nav-item" id="badge"  [routerLink]="['/cart']"  routerLinkActive="active">
-          <a class="nav-link" >
+          <button class="nav-link" type="link" >
             <span class="badge badge-pill bg-danger">0</span>
             <span><fa-icon [icon]="faShoppingCart" ></fa-icon></span>
-          </a>
+          </button>
         </li>
         </ul>
         

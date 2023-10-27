@@ -19,13 +19,13 @@ export class NavbarComponent implements OnInit {
    private storageKey = 'savedLanguageAndFlag';
    menuOpen: boolean = false;
   @ViewChild('listElem') listElem: ElementRef<HTMLElement>= {} as ElementRef;
-  listElems: any[] = [{flag:'fi fi-us',language:'us'} ,{flag: 'fi fi-ro', language: 'ro'}, {flag:'fi fi-it', language:'it'}, {flag: 'fi fi-fr', language: 'fr'}];
+  listElems: any[] = [{flag:'fi fi-us',language:'US'} ,{flag: 'fi fi-ro', language: 'RO'}, {flag:'fi fi-it', language:'IT'},  {flag: 'fi fi-de', language: 'DE'}];
   language:any[] =this.listElems.map((object:any)=> Object.keys(object)).flat();
   flags:any[] = this.listElems.map((object:any)=> Object.values(object)).flat();
   
   res : Language[]=[];
-  selectedValueFlag: string = '';
-  selectedValueLanguage: string  = '';
+  selectedValueFlag: string = 'fi fi-us';
+  selectedValueLanguage: string  = 'US';
   ngOnInit(): void {
     const langJson = JSON.parse(localStorage.getItem(this.storageKey)!);
     this.selectedValueFlag = langJson[0].flag;

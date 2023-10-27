@@ -40,9 +40,11 @@ import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from "@angular/material/form-field";
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome'
 
-import { MomentDateModule } from '@angular/material-moment-adapter';
+import {MatCheckboxModule} from '@angular/material/checkbox';
 import { CartComponent } from './components/cart/cart.component';
 import { ClickDirectiveDirective } from './components/directive/click-directive.directive';
+import { MAT_DATE_LOCALE } from '@angular/material/core';
+import { ProductsComponent } from './components/products/products.component';
 @NgModule({
   declarations: [
     
@@ -59,11 +61,12 @@ import { ClickDirectiveDirective } from './components/directive/click-directive.
     FileUploadComponent,
     LayoutComponent,
     CartComponent,
-    ClickDirectiveDirective
+    ClickDirectiveDirective,
+    ProductsComponent
   ],
   imports: [
+    MatCheckboxModule,
     FontAwesomeModule,
-    MomentDateModule,
     MatFormFieldModule,
     MatInputModule,
     ReactiveFormsModule,
@@ -89,7 +92,9 @@ import { ClickDirectiveDirective } from './components/directive/click-directive.
   
     
   ],
-  providers: [],
+  providers: [
+    {provide: MAT_DATE_LOCALE, useValue: 'it-IT'}
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

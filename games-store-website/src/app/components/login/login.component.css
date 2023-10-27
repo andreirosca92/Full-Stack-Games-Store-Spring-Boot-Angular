@@ -1,6 +1,18 @@
 
-.container {
-    height: 100%;
-    width: 100%;
 
+  #facebook{
+    width: 20px;
+    border-radius: 50%;
+
+  }
+  #facebook:hover{
+    background-color: orange;
+  }
+
+  .forgot-password{
+    display: inline-block;
+
+    white-space: nowrap;
+    overflow: hidden;
+ 
   }

@@ -1,0 +1,9 @@
+.text-center button[type="button"]{
+    border-radius: 50%;
+    
+}
+
+.text-center button[type="button"]:hover{
+    background-color: rgb(172, 110, 213);
+   
+}

@@ -2,12 +2,24 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { first } from 'rxjs/operators';
+import { faGoogle } from '@fortawesome/free-brands-svg-icons';
+import { faFacebook } from '@fortawesome/free-brands-svg-icons';
+import { faGithub } from '@fortawesome/free-brands-svg-icons';
+import { faTwitter } from '@fortawesome/free-brands-svg-icons';
+
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.css']
 })
 export class RegisterComponent{
+
+  faGoogle = faGoogle;
+  faFacebook = faFacebook;
+  faGithub = faGithub;
+  faTwitter = faTwitter;
+
+  hide: boolean = true;
 //   form!: FormGroup;
 //     loading = false;
 //     submitted = false;

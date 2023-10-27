@@ -79,6 +79,13 @@
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
+            "allowedCommonJsDependencies": [
+              "rxjs-compat",
+              "validator",
+              "twilio-video",
+              "chartjs",
+              "lodash"
+            ],
             "polyfills": [
               "zone.js",
               "zone.js/testing"

@@ -1,3 +1,13 @@
+#banner{
+    background-color: aliceblue;
+    width: 1296px;
+    height: 60px;
+   
 
-
-
+    
+}
+#banner> h3{
+    padding: auto;
+    text-align: center;
+    text-transform: uppercase;
+}
